@@ -16,6 +16,7 @@
 #pragma once
 
 #include "velox/common/memory/ByteStream.h"
+#include "velox/expression/ComplexViewTypes.h"
 #include "velox/vector/BaseVector.h"
 #include "velox/vector/DecodedVector.h"
 
@@ -34,6 +35,11 @@ class ContainerRowSerde {
   static void serialize(
       const BaseVector& source,
       vector_size_t index,
+      ByteOutputStream& out,
+      const ContainerRowSerdeOptions& options);
+
+  static void serialize(
+      const GenericView& source,
       ByteOutputStream& out,
       const ContainerRowSerdeOptions& options);
 

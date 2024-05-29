@@ -810,6 +810,14 @@ void ContainerRowSerde::serialize(
   serializeSwitch(source, index, out, options);
 }
 
+void ContainerRowSerde::serialize(
+    const GenericView& source,
+    ByteOutputStream& out,
+    const ContainerRowSerdeOptions& options) {
+  VELOX_DCHECK(!source.isNull(), "Null top-level values are not supported");
+  serializeSwitch(*source.base(), source.decodedIndex(), out, options);
+}
+
 // static
 void ContainerRowSerde::deserialize(
     ByteInputStream& in,
